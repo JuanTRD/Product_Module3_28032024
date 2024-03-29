@@ -1,10 +1,11 @@
 package Model;
 
 import java.sql.Time;
+import java.sql.Timestamp;
 
 public class Order {
     private int id;
-    private Time time;
+    private Timestamp time;
     private int total;
     private Customer customer;
 
@@ -16,11 +17,11 @@ public class Order {
         this.id = id;
     }
 
-    public Time getTime() {
+    public Timestamp getTime() {
         return time;
     }
 
-    public void setTime(Time time) {
+    public void setTime(Timestamp time) {
         this.time = time;
     }
 
