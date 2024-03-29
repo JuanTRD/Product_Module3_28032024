@@ -1,16 +1,88 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: admin
-  Date: 3/28/2024
-  Time: 11:21 PM
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Title</title>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+            crossorigin="anonymous"></script>
+    <style>
+        .nav-bg{
+            background-color: #272882;
+        }
+        .color-white{
+            color: white;
+        }
+        img {
+            width: 100px;
+            height: 100px;
+        }
+
+    </style>
 </head>
 <body>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <nav class="navbar navbar-expand-lg nav-bg">
+                <a class="navbar-brand color-white" href="">Mini Mart</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link color-white" href="">Create Product <span
+                                    class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="col-12 mt-5">
+            <form action="" method="post">
+
+                <div class="form-group col-md-12">
+                    <label for="inputEmail4">Name</label>
+                    <input type="text" class="form-control" id="inputEmail4" name="name">
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label for="inputPassword4">Price</label>
+                    <input type="number" class="form-control" id="inputPassword4" name="price">
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label for="inputZip">Quantity</label>
+                    <input type="number" class="form-control" id="inputZip" name="quantity">
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label for="inputImg">Image</label>
+                    <input type="text" class="form-control" id="inputImg" name="image">
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label for="inputState">Category</label>
+                    <select id="inputState" class="form-control" name="idCategory">
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Create Product</button>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>
