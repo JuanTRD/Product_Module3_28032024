@@ -38,14 +38,14 @@ public class ProductController extends HttpServlet {
     }
 
     private void showAddPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher dispatcher = req.getRequestDispatcher("product/add.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("Product/add.jsp");
         dispatcher.forward(req, resp);
     }
 
     private void showHomePage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Product> products = productService.findAll();
         req.setAttribute("product", products);
-        RequestDispatcher dispatcher = req.getRequestDispatcher("product/home.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("Product/home.jsp");
         dispatcher.forward(req, resp);
     }
 
