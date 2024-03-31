@@ -13,7 +13,7 @@ public class ProductService {
     public void add(Product product) {
 
     }
-    public List<Product> findAll() {
+    public List<Product> viewAll() {
         return null;
     }
 
@@ -30,5 +30,8 @@ public class ProductService {
 
     public Product findById(int id) {
         return null;
+    }
+
+    public List<Product> findAll() {
     }
 }
