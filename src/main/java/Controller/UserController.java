@@ -21,9 +21,9 @@ public class UserController extends HttpServlet {
             case "admin":
                 showAdminHomePage(req, resp);
                 break;
-            case "user":
-                showUserHomePage(req, resp);
-                break;
+//            case "user":
+//                showUserHomePage(req, resp);
+//                break;
         }
     }
 
