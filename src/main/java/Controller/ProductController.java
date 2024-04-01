@@ -21,8 +21,7 @@ public class ProductController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession(false);
-        int id = (int) session.getAttribute("idUser");
+        boolean check = this.checkUser(req);
         if (session != null) {
             String action = req.getParameter("action");
             switch (action) {
@@ -40,7 +39,13 @@ public class ProductController extends HttpServlet {
             resp.sendRedirect("http://localhost:8080/user?action=login");
         }
     }
-
+public boolean checkUser(HttpServletRequest req){
+        HttpSession session = req.getSession();
+        if(session != null){
+            return session.getAttribute("idUser") != null;
+        }
+        return false;
+}
     private void showEditPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int idEdit = Integer.parseInt(req.getParameter("idEdit"));
         req.setAttribute("idEdit", idEdit);
@@ -57,7 +62,7 @@ public class ProductController extends HttpServlet {
     }
 
     private void showHomePage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Product> products = productService.findAll();
+        List<Product> products = productService.viewAll();
         req.setAttribute("product", products);
         RequestDispatcher dispatcher = req.getRequestDispatcher("Product/home.jsp");
         dispatcher.forward(req, resp);
