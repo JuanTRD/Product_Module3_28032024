@@ -54,7 +54,7 @@
             </nav>
         </div>
         <div class="col-6 mt-5" >
-            <button type="button" class="btn btn-outline-primary"><a href="http://localhost:8080/product?action=add">Create product</a></button>
+            <button type="button" class="btn btn-outline-primary"><a href="http://localhost:8080/product?action=add">Create Product</a></button>
         </div>
         <div class="col-12 mt-3">
             <table class="table">
