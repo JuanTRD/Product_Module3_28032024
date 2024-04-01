@@ -20,7 +20,7 @@ public class UserService {
     }
 
     public void addUser(User user) {
-        String sql = "insert into user(id, username, password, idRole);";
+        String sql = "insert into user(?, ?, ?, ?);";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, user.getId());
@@ -114,11 +114,11 @@ public class UserService {
         User user = null;
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, id);
+            preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                int username = rs.getString("username");
-                int password = rs.getString("password");
+                String username = rs.getString("username");
+                String password = rs.getString("password");
                 user = new User(id, username, password);
             }
         } catch (SQLException e) {
