@@ -12,17 +12,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "productController", value = "/product")
-public class ProductController extends HttpServlet {
+@WebServlet(name = "productController", value = "/adminProduct")
+public class AdminProductController extends HttpServlet {
     private ProductService productService = new ProductService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         boolean check = this.checkUser(req);
-        if (session != null) {
+        if (check) {
             String action = req.getParameter("action");
             switch (action) {
                 case "home":
@@ -64,7 +63,7 @@ public boolean checkUser(HttpServletRequest req){
     private void showHomePage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Product> products = productService.viewAll();
         req.setAttribute("product", products);
-        RequestDispatcher dispatcher = req.getRequestDispatcher("Product/home.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("User/Admin/Product/home.jsp");
         dispatcher.forward(req, resp);
     }
 

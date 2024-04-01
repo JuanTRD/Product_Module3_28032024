@@ -61,7 +61,7 @@ public class UserController extends HttpServlet {
             if(userService.checkRoleById(id).getName().equals("admin")){
                 resp.sendRedirect("");
             } else {
-                resp.sendRedirect("http://localhost:8080/product?action=home");
+                resp.sendRedirect("product?action=home");
             }
 
         } else {
