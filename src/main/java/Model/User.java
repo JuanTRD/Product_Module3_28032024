@@ -42,19 +42,11 @@ public class User {
         this.password = password;
     }
 
-    public int getIdRole() {
+    public int getRole() {
         return role;
     }
 
-    public void setIdRole(int role) {
+    public void setRole(int role) {
         this.role = role;
-    }
-
-    public String getUsername() {
-        return null;
-    }
-
-    public String getPassword() {
-        ;
     }
 }
