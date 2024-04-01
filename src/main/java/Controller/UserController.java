@@ -58,7 +58,12 @@ public class UserController extends HttpServlet {
             int id = userService.getIdUser(username, password);
             HttpSession session = req.getSession();
             session.setAttribute("idUser", id);
-            resp.sendRedirect("http://localhost:8080/product?action=home");
+            if(userService.checkRoleById(id).getName().equals("admin")){
+                resp.sendRedirect("");
+            } else {
+                resp.sendRedirect("product?action=home");
+            }
+
         } else {
             resp.sendRedirect("http://localhost:8080/user?action=login");
         }

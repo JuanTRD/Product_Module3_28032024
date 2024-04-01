@@ -4,15 +4,17 @@ import Model.subModel.Role;
 
 public class User {
     private int id;
-    private String name;
-    private Role role;
+    private String username;
+    private String password;
+    private int role;
 
     public User() {
     }
 
-    public User(int id, String name, Role role) {
+    public User(int id, String username, String password, int IdRole) {
         this.id = id;
-        this.name = name;
+        this.username = username;
+        this.password = password;
         this.role = role;
     }
 
@@ -24,19 +26,27 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public Role getRole() {
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public int getIdRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setIdRole(int role) {
         this.role = role;
     }
 
