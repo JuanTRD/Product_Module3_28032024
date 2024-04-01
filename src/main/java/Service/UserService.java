@@ -47,7 +47,7 @@ public class UserService {
         }
     }
 
-    public List<User> viewAllUser() {
+    public List<User> viewAll() {
         String sql = "select * from user;";
         List<User> userList = new ArrayList<>();
         try {
