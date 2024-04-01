@@ -50,5 +50,6 @@ public class UserService {
     }
 
     public int getIdUser(String username, String password) {
+        ;
     }
 }
