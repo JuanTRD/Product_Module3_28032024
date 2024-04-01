@@ -64,8 +64,6 @@
                     <th scope="col">STT</th>
                     <th scope="col">Name</th>
                     <th scope="col">Age</th>
-                    <th scope="col" colspan="2" style="padding-left: 10%">Action</th>
-
                 </tr>
                 </thead>
                 <tbody>
@@ -73,8 +71,6 @@
                     <th scope="row">1</th>
                     <td>Quynh</td>
                     <td>28</td>
-                    <td><a href="" class="btn btn-outline-warning">edit</a></td>
-                    <td><a href="" class="btn btn-outline-danger">delete</a></td>
                 </tr>
                 </tbody>
             </table>

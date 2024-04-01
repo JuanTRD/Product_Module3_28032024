@@ -1,5 +1,6 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,7 +55,7 @@
             </nav>
         </div>
         <div class="col-6 mt-5" >
-            <button type="button" class="btn btn-outline-primary">Create Oder</button>
+            <button type="button" class="btn btn-outline-primary">Create Order</button>
         </div>
         <div class="col-12 mt-3">
             <table class="table">
