@@ -57,7 +57,7 @@ public class ProductController extends HttpServlet {
     }
 
     private void showHomePage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Product> products = productService.findAll();
+        List<Product> products = productService.viewAll();
         req.setAttribute("product", products);
         RequestDispatcher dispatcher = req.getRequestDispatcher("Product/home.jsp");
         dispatcher.forward(req, resp);

@@ -4,20 +4,86 @@ import Model.Product;
 import Model.User;
 import Model.subModel.Role;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserService {
-    private List<User> userList = new ArrayList<>();
+    private Connection connection = ConnectToMySQL.getConnection();
+
+    private List<Role> roleList = new ArrayList<>();
 
     public UserService() {
     }
-    public void add(User user) {
 
+    public void addUser(User user) {
+        String sql = "insert into user(id, username, password, idRole);";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, user.getId());
+            preparedStatement.setString(2, user.getUsername());
+            preparedStatement.setString(3, user.getPassword());
+            preparedStatement.setInt(4, user.getIdRole());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-    public List<User> viewAll() {
-        return null;
+
+    public void addRole(Role role) {
+        String sql = "insert into user(id, username, password, idRole);";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, user.getId());
+            preparedStatement.setString(2, user.getUsername());
+            preparedStatement.setString(3, user.getPassword());
+            preparedStatement.setInt(4, user.getIdRole());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
+
+    public List<User> viewAllUser() {
+        String sql = "select * from user;";
+        List<User> userList = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String username = rs.getString("username");
+                String password = rs.getString("password");
+                int idRole = rs.getInt("IDRole");
+                User user = new User(id, username, password, idRole);
+                userList.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userList;
+    }
+
+    public List<Role> viewAllRole() {
+        String sql = "select * from role;";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                Role role = new Role(id, name);
+                roleList.add(role);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return roleList;
+    }
+
     public boolean checkUser(String username, String password) {
         for (int i = 0; i < userList.size(); i++) {
             if (username.equals(userList.get(i).getUsername()) && password.equals(userList.get(i).getPassword())) {
@@ -26,14 +92,12 @@ public class UserService {
         }
         return false;
     }
-    public boolean checkRole(String username, Role role) {
-        for (int i = 0; i < userList.size(); i++) {
-            if (username.equals(userList.get(i).getUsername())&& role.equals(userList.get(i).getRole())) {
-                return true;
-            }
-        }
-        return false;
+
+    public int getIDRole(String username, String password) {
+
+        return null;
     }
+
     public void edit(int id, User user) {
     }
 
@@ -46,6 +110,20 @@ public class UserService {
     }
 
     public User findById(int id) {
-        return null;
+        String sql = "SELECT * from user where id =?;";
+        User user = null;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int username = rs.getString("username");
+                int password = rs.getString("password");
+                user = new User(id, username, password);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
     }
 }

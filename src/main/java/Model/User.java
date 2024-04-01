@@ -6,12 +6,12 @@ public class User {
     private int id;
     private String username;
     private String password;
-    private Role role;
+    private int role;
 
     public User() {
     }
 
-    public User(int id, String username, String password, Role role) {
+    public User(int id, String username, String password, int IdRole) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -42,11 +42,11 @@ public class User {
         this.password = password;
     }
 
-    public Role getRole() {
+    public int getIdRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setIdRole(int role) {
         this.role = role;
     }
 }
