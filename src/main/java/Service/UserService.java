@@ -126,4 +126,8 @@ public class UserService {
         }
         return user;
     }
+
+    public int getIdUser(String username, String password) {
+        ;
+    }
 }

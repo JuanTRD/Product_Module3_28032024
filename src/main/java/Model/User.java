@@ -49,4 +49,12 @@ public class User {
     public void setIdRole(int role) {
         this.role = role;
     }
+
+    public String getUsername() {
+        return null;
+    }
+
+    public String getPassword() {
+        ;
+    }
 }
