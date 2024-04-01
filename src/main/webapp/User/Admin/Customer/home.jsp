@@ -36,7 +36,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
-                            <a class="nav-link color-white" href="#">Customer <span class="sr-only">(current)</span></a>
+                            <a class="nav-link color-white" href="#">Product <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item active">
                             <a class="nav-link color-white" href="#">Oder<span class="sr-only">(current)</span></a>
@@ -44,6 +44,7 @@
                         <li class="nav-item active">
                             <a class="nav-link color-white" href="#">Category<span class="sr-only">(current)</span></a>
                         </li>
+
                     </ul>
                     <form class="form-inline my-2 my-lg-0">
                         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -52,26 +53,27 @@
                 </div>
             </nav>
         </div>
+        <div class="col-6 mt-5" >
+            <button type="button" class="btn btn-outline-primary">Create customer</button>
+        </div>
         <div class="col-12 mt-3">
             <table class="table">
                 <thead>
                 <tr class="nav-bg color-white">
                     <th scope="col">STT</th>
                     <th scope="col">Name</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Image</th>
-                    <th scope="col">IdCategory</th>
+                    <th scope="col">Age</th>
+                    <th scope="col" colspan="2" style="padding-left: 10%">Action</th>
+
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
                     <th scope="row">1</th>
                     <td>Quynh</td>
-                    <td>300</td>
-                    <td>27</td>
-                    <td><img src="abc.jbg" alt=""></td>
-                    <td>1</td>
+                    <td>28</td>
+                    <td><a href="" class="btn btn-outline-warning">edit</a></td>
+                    <td><a href="" class="btn btn-outline-danger">delete</a></td>
                 </tr>
                 </tbody>
             </table>
@@ -80,4 +82,3 @@
 </div>
 </body>
 </html>
-

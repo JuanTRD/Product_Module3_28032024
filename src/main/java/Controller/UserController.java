@@ -1,3 +1,4 @@
+
 package Controller;
 
 import Service.UserService;
@@ -20,12 +21,12 @@ public class UserController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 
-            String action = req.getParameter("action");
+        String action = req.getParameter("action");
 
-            switch (action) {
-                case "login":
-                    showLoginForm(req, resp);
-                    break;
+        switch (action) {
+            case "login":
+                showLoginForm(req, resp);
+                break;
 
 
         }
