@@ -15,6 +15,7 @@ public class UserService {
     private Connection connection = ConnectToMySQL.getConnection();
 
     private List<Role> roleList = new ArrayList<>();
+    private RoleService roleService = new RoleService();
 
     public UserService() {
     }
