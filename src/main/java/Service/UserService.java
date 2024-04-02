@@ -27,7 +27,7 @@ public class UserService {
             preparedStatement.setInt(1, user.getId());
             preparedStatement.setString(2, user.getUsername());
             preparedStatement.setString(3, user.getPassword());
-            preparedStatement.setInt(4, roleService.findById());
+            preparedStatement.setInt(4, roleService.findIdRole());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -45,7 +45,8 @@ public class UserService {
                 String username = rs.getString("username");
                 String password = rs.getString("password");
                 int idRole = rs.getInt("IDRole");
-                User user = new User(id, username, password, idRole);
+                Role role = roleService.findById(idRole);
+                User user = new User(id, username, password, role);
                 userList.add(user);
             }
         } catch (SQLException e) {
@@ -56,17 +57,22 @@ public class UserService {
 
 
     public boolean checkUser(String username, String password) {
-        for (int i = 0; i < userList.size(); i++) {
-            if (username.equals(userList.get(i).getUsername()) && password.equals(userList.get(i).getPassword())) {
+        String sql = "select * from user;";
+        List<User> userList = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String username = rs.getString("username");
+                String password = rs.getString("password");
+                int idRole = rs.getInt("IDRole");
                 return true;
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return false;
-    }
-
-    public int getIDRole(String username, String password) {
-
-        return null;
     }
 
     public void edit(int id, User user) {
