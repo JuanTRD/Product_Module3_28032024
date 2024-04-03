@@ -14,7 +14,7 @@ public class OrderService {
     private List<Order> orderList = new ArrayList<>();
 
     public List<Order> viewAll(){
-        String sql = "SELECT * FROM orders";
+        String sql = "select order.*, c.name as nameCustomer from order join customer c on c.id =orders.idcustomer";
         List<Order> list = new ArrayList<>();
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -23,8 +23,10 @@ public class OrderService {
                 int id = resultSet.getInt("id");
                 Timestamp time = Timestamp.valueOf(resultSet.getString("time"));
                 int total = resultSet.getInt("total");
-//                Customer customer = resultSet.getString("customer");
-                Order order = new Order (id, time, total);
+                int idCustomer = resultSet.getInt("idCustomer");
+                String nameCustomer = resultSet.getString("nameCustomer");
+                Customer customer = new Customer(idCustomer, nameCustomer);
+                Order order = new Order (id, time, total,customer);
                 list.add(order);
             }
 

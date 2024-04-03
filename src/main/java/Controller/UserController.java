@@ -1,5 +1,7 @@
+
 package Controller;
 
+import Service.RoleService;
 import Service.UserService;
 import org.omg.CORBA.StringHolder;
 
@@ -16,17 +18,26 @@ import java.util.List;
 @WebServlet(name = "userController", value = "/login")
 public class UserController extends HttpServlet {
     private UserService userService = new UserService();
+    private RoleService roleService = new RoleService();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            String action = req.getParameter("action");
-            switch (action) {
-                case "login":
-                    showLoginForm(req, resp);
-                    break;
+
+
+        String action = req.getParameter("action");
+
+        switch (action) {
+            case "login":
+                showLoginForm(req, resp);
+                break;
+
+
         }
+
     }
+
     private void showLoginForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher dispatcher = req.getRequestDispatcher("User/Login/login.jsp");
+
+        RequestDispatcher dispatcher = req.getRequestDispatcher("Users/Login/login.jsp");
         dispatcher.forward(req, resp);
     }
 
@@ -37,6 +48,7 @@ public class UserController extends HttpServlet {
             case "login":
                 login(req, resp);
                 break;
+
         }
     }
 
@@ -48,7 +60,12 @@ public class UserController extends HttpServlet {
             int id = userService.getIdUser(username, password);
             HttpSession session = req.getSession();
             session.setAttribute("idUser", id);
-            resp.sendRedirect("http://localhost:8080/product?action=home");
+            if(roleService.findById(id).getName().equals("admin")){
+                resp.sendRedirect("");
+            } else {
+                resp.sendRedirect("product?action=home");
+            }
+
         } else {
             resp.sendRedirect("http://localhost:8080/user?action=login");
         }

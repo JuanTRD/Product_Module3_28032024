@@ -16,7 +16,7 @@ public class CategoryService {
     private Connection connection = ConnectToMySQL.getConnection();
 
     public List<Category> viewAll() {
-        String sql = "SELECT * FROM category";
+        String sql = "SELECT * FROM category;";
         List<Category> list = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);

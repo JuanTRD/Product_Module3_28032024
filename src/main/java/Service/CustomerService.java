@@ -1,5 +1,6 @@
 package Service;
 
+import Model.Category;
 import Model.Customer;
 import Model.Product;
 
@@ -12,64 +13,79 @@ import java.util.List;
 
 public class CustomerService {
     private Connection connection = ConnectToMySQL.getConnection();
-public CustomerService(){}
-    public List<Customer> viewAll(){
-        String sql = "SELECT * FROM customer";
-        List<Customer> list = new ArrayList<>();
-        try{
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()){
-                int id = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                int age = resultSet.getInt("age");
-                Customer customer = new Customer (id, name, age);
-                list.add(customer);
-            }
 
-        } catch(SQLException e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
-
+    public List<Customer> customerList = new ArrayList<>();
+    private CustomerService() {}
     public void add(Customer customer) {
-        String sql = "INSERT INTO Customer(id,name,age) values (?,?,?);";
-        try{
+        String sql = "insert into customer(name, age) values (?,?);";
+        try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, customer.getId());
-            preparedStatement.setString(2, customer.getName());
-            preparedStatement.setInt(3, customer.getAge());
+            preparedStatement.setString(1, customer.getName());
+            preparedStatement.setDouble(2, customer.getAge());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
+    public List<Customer> viewAll() {
+        String sql = "select * from customer;";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                int age = rs.getInt("age");
+                Customer customer = new Customer(id, name, age);
+                customerList.add(customer);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return customerList;
+    }
+
     public void edit(int id, Customer customer) {
-        String sql = "UPDATE customer set name = ?, age = ?, where id = ?;";
-        try{
+        String sql = "UPDATE customer SET name = ?, age = ? WHERE id = ?;";
+        try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, customer.getName());
             preparedStatement.setInt(2, customer.getAge());
-            preparedStatement.setInt(3,id);
+            preparedStatement.setInt(3, id);
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+
     public void delete(int id) {
+        String sql = "DELETE FROM customer WHERE id = ?;";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    public int findIndexById(int id){
+    }
 
-        return -1;
-    }
-    public int findIndexByName(String name){
-
-        return -1;
-    }
-    public Customer findById(int id){ return null;
-    }
-    public Customer findByName(String name){
-        return null;
+    public Customer findById(int id) {
+        String sql = "select * from customer where id=?;";
+        Customer customer = null;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                String name = rs.getString("name");
+                int age = rs.getInt("age");
+                customer = new Customer(name, age);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return customer;
     }
 }
