@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="<c:url value='Users/Login/login.css'/>">
     <link rel="stylesheet" href="font/fonts/themify-icons/themify-icons.css">
 </head>
 <body>

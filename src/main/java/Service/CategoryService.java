@@ -66,11 +66,11 @@ public class CategoryService {
         return -1;
     }
 
-    Category findById(int id) {
+    public Category findById(int id) {
         return categoryList.get(findIndexById(id));
     }
 
-    Category findByName(String name) {
+    public Category findByName(String name) {
         return categoryList.get(findIndexByName(name));
     }
 }

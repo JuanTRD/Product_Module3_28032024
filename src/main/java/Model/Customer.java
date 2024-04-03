@@ -19,6 +19,11 @@ public class Customer {
         this.name = name;
     }
 
+    public Customer(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
     public int getId() {
         return id;
     }
