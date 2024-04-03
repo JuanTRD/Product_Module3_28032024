@@ -37,7 +37,7 @@ public class UserController extends HttpServlet {
 
     private void showLoginForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        RequestDispatcher dispatcher = req.getRequestDispatcher("Login/login.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("Users/Login/login.jsp");
         dispatcher.forward(req, resp);
     }
 
