@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "AdminCustomerController", value = "AdminCustomer")
+@WebServlet(name = "AdminCustomerController", value = "/adminCustomer")
 public class AdminCustomerController extends HttpServlet {
     CustomerService customerService = new CustomerService();
 
