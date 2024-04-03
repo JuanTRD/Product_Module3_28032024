@@ -159,10 +159,4 @@ public class UserService {
         }
         return -1;
     }
-
-    public Category checkRoleById(int id) {
-    }
-    public int getIdUser(String username, String password){
-        return -1;
-    }
 }
