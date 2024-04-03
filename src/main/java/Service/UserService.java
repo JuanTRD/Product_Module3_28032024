@@ -1,5 +1,6 @@
 package Service;
 
+import Model.Category;
 import Model.Product;
 import Model.User;
 import Model.subModel.Role;
@@ -14,42 +15,28 @@ import java.util.List;
 public class UserService {
     private Connection connection = ConnectToMySQL.getConnection();
 
-    private List<Role> roleList = new ArrayList<>();
+    private List<User> userList = new ArrayList<>();
+    private RoleService roleService = new RoleService();
 
     public UserService() {
     }
 
-    public void addUser(User user) {
-        String sql = "insert into user(?, ?, ?, ?);";
+    public void add(User user) {
+        String sql = "insert into user(username, password, idrole) values (?, ?, ?);";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, user.getId());
-            preparedStatement.setString(2, user.getUsername());
-            preparedStatement.setString(3, user.getPassword());
-            preparedStatement.setInt(4, user.getRole().getId());
+            preparedStatement.setString(1, user.getUsername());
+            preparedStatement.setString(2, user.getPassword());
+            Role role = user.getRole();
+            preparedStatement.setInt(3,user.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void addRole(Role role) {
-        String sql = "insert into user(id, username, password, idRole);";
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, user.getId());
-            preparedStatement.setString(2, user.getUsername());
-            preparedStatement.setString(3, user.getPassword());
-            preparedStatement.setInt(4, user.getIdRole());
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public List<User> viewAllUser() {
-        String sql = "select * from user;";
-        List<User> userList = new ArrayList<>();
+    public List<User> viewAll() {
+        String sql = "select user.*, r.name as nameRole from user join role r on r.id = user.idRole;";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet rs = preparedStatement.executeQuery();
@@ -57,8 +44,10 @@ public class UserService {
                 int id = rs.getInt("id");
                 String username = rs.getString("username");
                 String password = rs.getString("password");
-                int idRole = rs.getInt("IDRole");
-                User user = new User(id, username, password, Role);
+                int idRole = rs.getInt("idRole");
+                String nameRole = rs.getString("nameRole");
+                Role role = new Role(idRole, nameRole);
+                User user = new User(id, username, password, role);
                 userList.add(user);
             }
         } catch (SQLException e) {
@@ -67,61 +56,74 @@ public class UserService {
         return userList;
     }
 
-    public List<Role> viewAllRole() {
-        String sql = "select * from role;";
+
+    public boolean checkUser(String username, String password) {
+        String sql = "select * from user";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");
-                String name = rs.getString("name");
-                Role role = new Role(id, name);
-                roleList.add(role);
+                String usernameRS = rs.getString("username");
+                String passwordRS = rs.getString("password");
+                if (usernameRS.equals(username) && passwordRS.equals(password)) {
+                return true;
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return roleList;
+        return false;
     }
-
-    public boolean checkUser(String username, String password) {
-        String sql = "select * from user where username = ? and password = ?;";
-        User user = null;
+    public int checkRole(String username, String password) {
+        String sql = "select user.*, r.name as nameRole from user join role r on r.id = user.idRole;";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, " + username + ");
-            preparedStatement.setString(2, " + password + ");
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                int id = resultSet.getInt("ID");
-                int IdRole = resultSet.getInt("IdRole");
-                Role role = new Role(IdRole);
-                user = new User(id,username,password,Role);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String usernameRS = rs.getString("username");
+                String passwordRS = rs.getString("password");
+                String nameRole = rs.getString("nameRole");
+                if (nameRole == "admin") {
+                    return 1;
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return id;
-    }
-
-    public int getIDRole(String username, String password) {
-
-        return null;
+        return 2;
     }
 
     public void edit(int id, User user) {
+        String sql = "UPDATE user SET username = ?, password = ?, idrole = ? WHERE id = ?;";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, user.getUsername());
+            preparedStatement.setString(2, user.getPassword());
+            Role role = user.getRole();
+            preparedStatement.setInt(3, role.getId());
+            preparedStatement.setInt(4, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 
     public void delete(int id) {
-    }
-
-    public int findIndexById(int id) {
-        return -1;
+        String sql = "DELETE FROM user WHERE id = ?;";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public User findById(int id) {
-        String sql = "SELECT * from user where id =?;";
+        String sql = "select user.*, r.name as nameRole from user join role r on r.id = user.idRole where user.id = ?;";
         User user = null;
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -130,34 +132,15 @@ public class UserService {
             while (rs.next()) {
                 String username = rs.getString("username");
                 String password = rs.getString("password");
-                user = new User(id, username, password);
+                String nameCategory = rs.getString("nameCategory");
+                int idRole = rs.getInt("idRole");
+                String nameRole = rs.getString("nameRole");
+                Role role = new Role(idRole, nameRole);
+                user = new User(id, username, password, role);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return user;
     }
-
-    public int getIdUser(String username, String password) {
-        String sql = "select ID from user where username = ? and password = ?;";
-        User user = null;
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, " + username + ");
-            preparedStatement.setString(2, " + password + ");
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                int id = resultSet.getInt("ID");
-                user = new User(id,username,password);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        if(user == null){
-            return -1;
-        } else {
-            return user.getId();
-        }
-        }
-
 }
