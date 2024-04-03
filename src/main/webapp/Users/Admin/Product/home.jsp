@@ -29,7 +29,7 @@
     <div class="row">
         <div class="col-12">
             <nav class="navbar navbar-expand-lg  nav-bg">
-                <a class="navbar-brand color-white" href="#">Mini Mart</a>
+                <a class="navbar-brand color-white" href="http://localhost:8080/adminProduct?action=home">Mini Mart</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -37,13 +37,13 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
-                            <a class="nav-link color-white" href="#">Customer <span class="sr-only">(current)</span></a>
+                            <a class="nav-link color-white" href="http://localhost:8080/user?action=login">Customer <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link color-white" href="#">Order<span class="sr-only">(current)</span></a>
+                            <a class="nav-link color-white" href="http://localhost:8080/user?action=login">Order<span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link color-white" href="#">Category<span class="sr-only">(current)</span></a>
+                            <a class="nav-link color-white" href="http://localhost:8080/adminCategory?action=home">Category<span class="sr-only">(current)</span></a>
                         </li>
 
                     </ul>
@@ -55,7 +55,7 @@
             </nav>
         </div>
         <div class="col-6 mt-5" >
-            <button type="button" class="btn btn-outline-primary"><a href="http://localhost:8080/product?action=add">Create Product</a></button>
+            <button type="button" class="btn btn-outline-primary"><a href="http://localhost:8080/adminProduct?action=add">Create Product</a></button>
         </div>
         <div class="col-12 mt-3">
             <table class="table">
@@ -79,8 +79,8 @@
                     <td>27</td>
                     <td><img src="abc.jbg" alt=""></td>
                     <td>1</td>
-                    <td><a href="" class="btn btn-outline-warning">edit</a></td>
-                    <td><a href="" class="btn btn-outline-danger">delete</a></td>
+                    <td><a href="http://localhost:8080/adminProduct?action=edit" class="btn btn-outline-warning">edit</a></td>
+                    <td><a href="http://localhost:8080/user?action=login" class="btn btn-outline-danger">delete</a></td>
                 </tr>
                 </tbody>
             </table>

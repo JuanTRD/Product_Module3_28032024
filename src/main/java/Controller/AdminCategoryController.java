@@ -33,9 +33,9 @@ public class AdminCategoryController extends HttpServlet {
                 case "add":
                     showCategoryAddPage(req, resp);
                     break;
-                case "edit":
-                    showCategoryEditPage(req, resp);
-                    break;
+//                case "edit":
+//                    showCategoryEditPage(req, resp);
+//                    break;
             }
         } else {
             resp.sendRedirect("http://localhost:8080/user?action=login");
@@ -44,14 +44,14 @@ public class AdminCategoryController extends HttpServlet {
 
     }
 
-    private void showCategoryEditPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int idEdit = Integer.parseInt(req.getParameter("idEdit"));
-        req.setAttribute("idEdit", idEdit);
-        Category categoryEdit = categoryService.findById(idEdit);
-        req.setAttribute("categoryEdit", categoryEdit);
-        RequestDispatcher dispatcher = req.getRequestDispatcher("User/Admin/Category/edit.jsp");
-        dispatcher.forward(req, resp);
-    }
+//    private void showCategoryEditPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        int idEdit = Integer.parseInt(req.getParameter("idEdit"));
+//        req.setAttribute("idEdit", idEdit);
+//        Category categoryEdit = categoryService.findById(idEdit);
+//        req.setAttribute("categoryEdit", categoryEdit);
+//        RequestDispatcher dispatcher = req.getRequestDispatcher("User/Admin/Category/edit.jsp");
+//        dispatcher.forward(req, resp);
+//    }
 
     private void showCategoryAddPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher = req.getRequestDispatcher("User/Admin/Category/add.jsp");
@@ -82,9 +82,9 @@ public class AdminCategoryController extends HttpServlet {
             case "add":
                 showCategoryAddPage(req, resp);
                 break;
-            case "edit":
-                showCategoryEditPage(req, resp);
-                break;
+//            case "edit":
+//                showCategoryEditPage(req, resp);
+//                break;
         }
     }
     private void editCategory(HttpServletRequest req, HttpServletResponse resp) throws IOException {

@@ -43,7 +43,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
-                            <a class="nav-link color-white" href="">Create Product <span
+                            <a class="nav-link color-white" href="http://localhost:8080/adminProduct?action=add">Create Product <span
                                     class="sr-only">(current)</span></a>
                         </li>
                     </ul>
@@ -51,7 +51,7 @@
             </nav>
         </div>
         <div class="col-12 mt-5">
-            <form action="" method="post">
+            <form action="http://localhost:8080/adminProduct?action=add" method="post">
                 <div class="row">
                     <div class="form-group col-md-6">
                         <label for="inputEmail4">Name</label>

@@ -16,6 +16,7 @@ import java.util.List;
 @WebServlet(name = "AdminCustomerController", value = "AdminCustomer")
 public class AdminCustomerController extends HttpServlet {
     CustomerService customerService = new CustomerService();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         boolean check = this.checkUser(req);
@@ -36,6 +37,7 @@ public class AdminCustomerController extends HttpServlet {
             resp.sendRedirect("http://localhost:8080/user?action=login");
         }
     }
+
     private void showCategoryEditPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int idEdit = Integer.parseInt(req.getParameter("idEdit"));
         req.setAttribute("idEdit", idEdit);
@@ -79,12 +81,13 @@ public class AdminCustomerController extends HttpServlet {
             case "edit":
                 showCategoryEditPage(req, resp);
                 break;
-    }
+        }
     private void editCategory(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         int id = Integer.parseInt(req.getParameter("id"));
         String name = req.getParameter("name");
         Category category = new Category(id, name);
 
         resp.sendRedirect("");
+    }
     }
 }

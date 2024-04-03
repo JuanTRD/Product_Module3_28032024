@@ -1,5 +1,6 @@
 package Service;
 
+import Model.Category;
 import Model.Product;
 import Model.User;
 import Model.subModel.Role;
@@ -129,5 +130,8 @@ public class UserService {
 
     public int getIdUser(String username, String password) {
         ;
+    }
+
+    public Category checkRoleById(int id) {
     }
 }
