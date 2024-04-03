@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="font/fonts/themify-icons/themify-icons.css">
 </head>
 <body>
-<div class="modal ">
+<div class="modal">
     <div class="modal-container ">
 
         <header class="modal-header">

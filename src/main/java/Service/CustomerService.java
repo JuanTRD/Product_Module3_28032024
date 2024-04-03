@@ -11,9 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerService {
-    private List<Customer> customerList = new ArrayList<>();
     private Connection connection = ConnectToMySQL.getConnection();
-
+public CustomerService(){}
     public List<Customer> viewAll(){
         String sql = "SELECT * FROM customer";
         List<Customer> list = new ArrayList<>();
@@ -23,7 +22,8 @@ public class CustomerService {
             while (resultSet.next()){
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
-                Customer customer = new Customer (id, name);
+                int age = resultSet.getInt("age");
+                Customer customer = new Customer (id, name, age);
                 list.add(customer);
             }
 
@@ -34,37 +34,42 @@ public class CustomerService {
     }
 
     public void add(Customer customer) {
-customerList.add(customer);
+        String sql = "INSERT INTO Customer(id,name,age) values (?,?,?);";
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, customer.getId());
+            preparedStatement.setString(2, customer.getName());
+            preparedStatement.setInt(3, customer.getAge());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     public void edit(int id, Customer customer) {
-        int index = findIndexById(id);
-        customerList.set(index,customer);
+        String sql = "UPDATE customer set name = ?, age = ?, where id = ?;";
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, customer.getName());
+            preparedStatement.setInt(2, customer.getAge());
+            preparedStatement.setInt(3,id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void delete(int id) {
-        int index = findIndexById(id);
-        customerList.remove(index);
-    }
-    public int findIndexById(int id){
-        for(int i=0; i<customerList.size(); i++){
-            if(customerList.get(i).getId()==id){
-                return i;
-            }
         }
+    public int findIndexById(int id){
+
         return -1;
     }
     public int findIndexByName(String name){
-        for(int i=0; i<customerList.size();i++){
-            if(customerList.get(i).getName()==name){
-                return i;
-            }
-        }
+
         return -1;
     }
-    public Customer findById(int id){
-        return customerList.get(findIndexById(id));
+    public Customer findById(int id){ return null;
     }
     public Customer findByName(String name){
-        return customerList.get(findIndexByName(name));
+        return null;
     }
 }

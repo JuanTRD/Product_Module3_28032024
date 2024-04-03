@@ -48,4 +48,7 @@ public class UserService {
     public User findById(int id) {
         return null;
     }
+    public int getIdUser(String username, String password){
+        return -1;
+    }
 }

@@ -23,8 +23,8 @@ public class OrderService {
                 int id = resultSet.getInt("id");
                 Timestamp time = Timestamp.valueOf(resultSet.getString("time"));
                 int total = resultSet.getInt("total");
-                Customer customer = resultSet.getString("customer");
-                Order order = new Order (id, time, total,customer);
+//                Customer customer = resultSet.getString("customer");
+                Order order = new Order (id, time, total);
                 list.add(order);
             }
 

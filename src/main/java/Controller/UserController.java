@@ -18,23 +18,15 @@ public class UserController extends HttpServlet {
     private UserService userService = new UserService();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-
             String action = req.getParameter("action");
-
             switch (action) {
                 case "login":
                     showLoginForm(req, resp);
                     break;
-
-
         }
-
     }
-
     private void showLoginForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        RequestDispatcher dispatcher = req.getRequestDispatcher("Login/login.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("User/Login/login.jsp");
         dispatcher.forward(req, resp);
     }
 
@@ -45,7 +37,6 @@ public class UserController extends HttpServlet {
             case "login":
                 login(req, resp);
                 break;
-
         }
     }
 
