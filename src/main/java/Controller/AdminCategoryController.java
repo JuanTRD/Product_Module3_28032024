@@ -80,10 +80,10 @@ public class AdminCategoryController extends HttpServlet {
         switch (action) {
 
             case "add":
-                showCategoryAddPage(req, resp);
+                addCategory(req, resp);
                 break;
             case "edit":
-                showCategoryEditPage(req, resp);
+                editCategory(req, resp);
                 break;
         }
     }
@@ -94,7 +94,7 @@ public class AdminCategoryController extends HttpServlet {
         categoryService.edit(id,newCategory);
         resp.sendRedirect("");
     }
-    private void addProduct(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    private void addCategory(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         int id = Integer.parseInt(req.getParameter("id"));
         String name = req.getParameter("name");
         Category newCategory = new Category(id, name);
