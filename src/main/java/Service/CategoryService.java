@@ -66,7 +66,7 @@ public class CategoryService {
         return -1;
     }
 
-    public Category findById(int id) {
+    Category findById(int id) {
         return categoryList.get(findIndexById(id));
     }
 
