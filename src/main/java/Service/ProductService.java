@@ -15,19 +15,20 @@ import java.util.List;
 public class ProductService {
     private Connection connection = ConnectToMySQL.getConnection();
     private CategoryService categoryService = new CategoryService();
+    private List<Product> productList = new ArrayList<>();
 
     public ProductService() {
     }
-    public void addUser(Product product) {
-        String sql = "insert into Product(?, ?, ?, ?, ?, ?);";
+    public void add(Product product) {
+        String sql = "insert into product(name, price , quantity, image, IDCATEGORY) values (?,?,?,?,?);";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, product.getId());
-            preparedStatement.setString(2, product.getName());
-            preparedStatement.setDouble(3, product.getPrice());
-            preparedStatement.setInt(4, product.getQuantity());
-            preparedStatement.setString(5, product.getImage());
-            preparedStatement.setInt(6, );
+            preparedStatement.setString(1, product.getName());
+            preparedStatement.setDouble(2, product.getPrice());
+            preparedStatement.setInt(3, product.getQuantity());
+            preparedStatement.setString(4, product.getImage());
+            Category category = product.getCategory();
+            preparedStatement.setInt(5, category.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -35,8 +36,7 @@ public class ProductService {
     }
 
     public List<Product> viewAll() {
-        String sql = "select * from product;";
-        List<Product> productList = new ArrayList<>();
+        String sql = "select product.*, c.name as nameCategory from product join category c on c.id = product.IDCATEGORY;";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet rs = preparedStatement.executeQuery();
@@ -44,9 +44,11 @@ public class ProductService {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 Double price = rs.getDouble("price");
-                Integer quantity = rs.getInt("quantity");
+                int quantity = rs.getInt("quantity");
                 String image = rs.getString("image");
-                Category category = categoryService.findById(rs.getInt("idcategory"));
+                int idCategory = rs.getInt("idcategory");
+                String nameCategory = rs.getString("nameCategory");
+                Category category = new Category(idCategory, nameCategory);
                 Product product = new Product(id, name, price, quantity, image, category);
                 productList.add(product);
             }
@@ -57,18 +59,55 @@ public class ProductService {
     }
 
     public void edit(int id, Product product) {
+        String sql = "UPDATE product SET name = ?, price = ?, quantity = ?, image = ?, idCategory = ? WHERE id = ?;";
+            try {
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setString(1, product.getName());
+                preparedStatement.setDouble(2, product.getPrice());
+                preparedStatement.setInt(3, product.getQuantity());
+                preparedStatement.setString(4, product.getImage());
+                Category category = product.getCategory();
+                preparedStatement.setInt(5, category.getId());
+                preparedStatement.setInt(6, id);
+                preparedStatement.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
     }
 
 
     public void delete(int id) {
-    }
-
-    public int findIndexById(int id) {
-        return -1;
+        String sql = "DELETE FROM product WHERE id = ?;";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public Product findById(int id) {
-        return null;
+        String sql = "select product.*, c.name as nameCategory from product join category c on c.id = product.IDCATEGORY where product.id=?;";
+        Product product = null;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                String name = rs.getString("name");
+                Double price = rs.getDouble("price");
+                int quantity = rs.getInt("quantity");
+                String image = rs.getString("image");
+                int idCategory = rs.getInt("idcategory");
+                String nameCategory = rs.getString("nameCategory");
+                Category category = new Category(idCategory, nameCategory);
+                product = new Product(id, name, price, quantity, image, category);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return product;
     }
 
 
