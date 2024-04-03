@@ -15,7 +15,7 @@ public class CustomerService {
     private Connection connection = ConnectToMySQL.getConnection();
 
     private List<Customer> customerList = new ArrayList<>();
-    public CustomerService() {}
+    private CustomerService() {}
     public void add(Customer customer) {
         String sql = "insert into customer(name, age) values (?,?);";
         try {
