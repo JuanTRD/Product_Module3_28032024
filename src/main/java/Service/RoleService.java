@@ -74,5 +74,20 @@ public class RoleService {
         return role;
     }
 
-
+    public int findIdRole(String name) {
+        String sql = "select * from role where name = ?;";
+        Role role = null;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, name);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                return id;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return -1;
+    }
 }
