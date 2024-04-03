@@ -15,7 +15,7 @@ public class CustomerService {
     private Connection connection = ConnectToMySQL.getConnection();
 
     private List<Customer> customerList = new ArrayList<>();
-    public CustomerService() {}
+    private CustomerService() {}
     public void add(Customer customer) {
         String sql = "insert into customer(name, age) values (?,?);";
         try {
@@ -81,7 +81,7 @@ public class CustomerService {
             while (rs.next()) {
                 String name = rs.getString("name");
                 int age = rs.getInt("age");
-                customer = new Customer(id, name, age);
+                customer = new Customer(name, age);
             }
         } catch (SQLException e) {
             e.printStackTrace();

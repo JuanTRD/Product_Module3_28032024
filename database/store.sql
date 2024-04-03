@@ -57,6 +57,7 @@ WHERE id=?;
 DELETE FROM user WHERE id = ?;
 select user.*, r.name as nameRole from user join role r on r.id = user.idrole;
 select user.*, r.name as nameRole from user join role r on r.id = user.idrole where user.id=?;
+select * from user where username = ? and password = ?;
 
 select * from product;
 insert into product(name, price , quantity, image, IDCATEGORY) values (?,?,?,?,?);
@@ -75,3 +76,4 @@ UPDATE customer
 SET name = ?, age = ?
 WHERE id=?;
 DELETE FROM customer WHERE id = ?;
+

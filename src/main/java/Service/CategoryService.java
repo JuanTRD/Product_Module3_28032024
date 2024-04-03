@@ -2,7 +2,6 @@ package Service;
 
 import Model.Category;
 import Model.Product;
-import Model.subModel.Role;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -49,7 +48,7 @@ public class CategoryService {
         categoryList.remove(index);
     }
 
-    public int findIndexById(int id) {
+    int findIndexById(int id) {
         for (int i = 0; i < categoryList.size(); i++) {
             if (categoryList.get(i).getId() == id) {
                 return i;
@@ -58,7 +57,7 @@ public class CategoryService {
         return -1;
     }
 
-    public int findIndexByName(String name) {
+    int findIndexByName(String name) {
         for (int i = 0; i < categoryList.size(); i++) {
             if (categoryList.get(i).getName().equals(name)) {
                 return i;
@@ -67,26 +66,11 @@ public class CategoryService {
         return -1;
     }
 
-    public Category findById(int id) {
-        String sql = "select * from category where id = ?;";
-        Category category = null;
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-
-                String name = resultSet.getString("name");
-
-                category = new Category(id, name);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return category;
+    Category findById(int id) {
+        return categoryList.get(findIndexById(id));
     }
 
-    public Category findByName(String name) {
+    Category findByName(String name) {
         return categoryList.get(findIndexByName(name));
     }
 }
