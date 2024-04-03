@@ -1,6 +1,7 @@
 
 package Controller;
 
+import Service.RoleService;
 import Service.UserService;
 import org.omg.CORBA.StringHolder;
 
@@ -17,6 +18,7 @@ import java.util.List;
 @WebServlet(name = "userController", value = "/login")
 public class UserController extends HttpServlet {
     private UserService userService = new UserService();
+    private RoleService roleService = new RoleService();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -58,7 +60,7 @@ public class UserController extends HttpServlet {
             int id = userService.getIdUser(username, password);
             HttpSession session = req.getSession();
             session.setAttribute("idUser", id);
-            if(userService.checkRoleById(id).getName().equals("admin")){
+            if(roleService.findById(id).getName().equals("admin")){
                 resp.sendRedirect("");
             } else {
                 resp.sendRedirect("product?action=home");

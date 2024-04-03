@@ -26,7 +26,7 @@ public class UserService {
             preparedStatement.setInt(1, user.getId());
             preparedStatement.setString(2, user.getUsername());
             preparedStatement.setString(3, user.getPassword());
-            preparedStatement.setInt(4, user.getIdRole());
+            preparedStatement.setInt(4, user.getRole().getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -58,7 +58,7 @@ public class UserService {
                 String username = rs.getString("username");
                 String password = rs.getString("password");
                 int idRole = rs.getInt("IDRole");
-                User user = new User(id, username, password, idRole);
+                User user = new User(id, username, password, Role);
                 userList.add(user);
             }
         } catch (SQLException e) {
@@ -85,12 +85,23 @@ public class UserService {
     }
 
     public boolean checkUser(String username, String password) {
-        for (int i = 0; i < userList.size(); i++) {
-            if (username.equals(userList.get(i).getUsername()) && password.equals(userList.get(i).getPassword())) {
-                return true;
+        String sql = "select * from user where username = ? and password = ?;";
+        User user = null;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, " + username + ");
+            preparedStatement.setString(2, " + password + ");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("ID");
+                int IdRole = resultSet.getInt("IdRole");
+                Role role = new Role(IdRole);
+                user = new User(id,username,password,Role);
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return false;
+        return id;
     }
 
     public int getIDRole(String username, String password) {
@@ -128,6 +139,25 @@ public class UserService {
     }
 
     public int getIdUser(String username, String password) {
-        ;
-    }
+        String sql = "select ID from user where username = ? and password = ?;";
+        User user = null;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, " + username + ");
+            preparedStatement.setString(2, " + password + ");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("ID");
+                user = new User(id,username,password);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if(user == null){
+            return -1;
+        } else {
+            return user.getId();
+        }
+        }
+
 }
