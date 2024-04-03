@@ -73,12 +73,13 @@ public class RoleService {
         }
         return role;
     }
-    public int getIdByRole(int id) {
-        String sql = "select * from role where id = ?;";
+
+    public int findIdRole() {
+        String sql = "select * from role where name = ?;";
         Role role = null;
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, id);
+            preparedStatement.setInt(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
 

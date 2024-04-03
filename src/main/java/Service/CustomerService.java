@@ -1,5 +1,6 @@
 package Service;
 
+import Model.Category;
 import Model.Customer;
 import Model.Product;
 
@@ -11,60 +12,80 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerService {
-    private List<Customer> customerList = new ArrayList<>();
     private Connection connection = ConnectToMySQL.getConnection();
 
-    public List<Customer> viewAll(){
-        String sql = "SELECT * FROM customer";
-        List<Customer> list = new ArrayList<>();
-        try{
+    private List<Customer> customerList = new ArrayList<>();
+    private CustomerService() {}
+    public void add(Customer customer) {
+        String sql = "insert into customer(name, age) values (?,?);";
+        try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()){
-                int id = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                Customer customer = new Customer (id, name);
-                list.add(customer);
-            }
-
-        } catch(SQLException e) {
+            preparedStatement.setString(1, customer.getName());
+            preparedStatement.setDouble(2, customer.getAge());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-        return list;
     }
 
-    public void add(Customer customer) {
-customerList.add(customer);
+    public List<Customer> viewAll() {
+        String sql = "select * from customer;";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                int age = rs.getInt("age");
+                Customer customer = new Customer(id, name, age);
+                customerList.add(customer);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return customerList;
     }
+
     public void edit(int id, Customer customer) {
-        int index = findIndexById(id);
-        customerList.set(index,customer);
+        String sql = "UPDATE customer SET name = ?, age = ? WHERE id = ?;";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, customer.getName());
+            preparedStatement.setInt(2, customer.getAge());
+            preparedStatement.setInt(3, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
+
 
     public void delete(int id) {
-        int index = findIndexById(id);
-        customerList.remove(index);
-    }
-    public int findIndexById(int id){
-        for(int i=0; i<customerList.size(); i++){
-            if(customerList.get(i).getId()==id){
-                return i;
-            }
+        String sql = "DELETE FROM customer WHERE id = ?;";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return -1;
     }
-    public int findIndexByName(String name){
-        for(int i=0; i<customerList.size();i++){
-            if(customerList.get(i).getName()==name){
-                return i;
+
+    public Customer findById(int id) {
+        String sql = "select * from customer where id=?;";
+        Customer customer = null;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                String name = rs.getString("name");
+                int age = rs.getInt("age");
+                customer = new Customer(name, age);
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return -1;
-    }
-    public Customer findById(int id){
-        return customerList.get(findIndexById(id));
-    }
-    public Customer findByName(String name){
-        return customerList.get(findIndexByName(name));
+        return customer;
     }
 }
