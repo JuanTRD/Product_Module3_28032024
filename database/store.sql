@@ -49,13 +49,29 @@ alter table USER add column username varchar(255) not null;
 alter table user add column password varchar(255) not null;
 
 select * from user;
-insert into user (username, password, IDRole) values (?,?,?);
+insert into user(username, password , idrole) values (?,?,?);
+select * from user where id=?;
+UPDATE user
+SET username = ?, password = ?, idrole=?
+WHERE id=?;
+DELETE FROM user WHERE id = ?;
+select user.*, r.name as nameRole from user join role r on r.id = user.idrole;
+select user.*, r.name as nameRole from user join role r on r.id = user.idrole where user.id=?;
 
 select * from product;
-insert into product(name, price , quantity, image) values (?,?,?,?);
-
+insert into product(name, price , quantity, image, IDCATEGORY) values (?,?,?,?,?);
 select * from product where id=?;
 UPDATE product
 SET name = ?, price = ?, quantity=?, image =?
 WHERE id=?;
 DELETE FROM product WHERE id = ?;
+select product.*, c.name as nameCategory from product join category c on c.id = product.IDCATEGORY;
+select product.*, c.name as nameCategory from product join category c on c.id = product.IDCATEGORY where product.id=?;
+
+select * from customer;
+insert into customer(name, age) values (?,?);
+select * from customer where id=?;
+UPDATE customer
+SET name = ?, age = ?
+WHERE id=?;
+DELETE FROM customer WHERE id = ?;
