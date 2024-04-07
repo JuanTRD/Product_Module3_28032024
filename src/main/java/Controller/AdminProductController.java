@@ -65,7 +65,7 @@ public class AdminProductController extends HttpServlet {
 
     private void showHomePage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Product> products = productService.viewAll();
-        req.setAttribute("product", products);
+        req.setAttribute("products", products);
         RequestDispatcher dispatcher = req.getRequestDispatcher("Users/Admin/Product/home.jsp");
         dispatcher.forward(req, resp);
     }
