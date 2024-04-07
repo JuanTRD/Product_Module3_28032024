@@ -30,7 +30,7 @@ public class ProductService {
             preparedStatement.setInt(5, product.getCategory().getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -53,7 +53,7 @@ public class ProductService {
                 productList.add(product);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return productList;
     }
@@ -71,7 +71,7 @@ public class ProductService {
                 preparedStatement.setInt(6, id);
                 preparedStatement.executeUpdate();
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
     }
 
@@ -83,7 +83,7 @@ public class ProductService {
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -105,7 +105,7 @@ public class ProductService {
                 product = new Product(id, name, price, quantity, image, category);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return product;
     }
