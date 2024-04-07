@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Category;
 import Model.Product;
+import Service.CategoryService;
 import Service.ProductService;
 
 import javax.servlet.RequestDispatcher;
@@ -17,11 +18,11 @@ import java.util.List;
 @WebServlet(name = "productController", value = "/adminProduct")
 public class AdminProductController extends HttpServlet {
     private ProductService productService = new ProductService();
-
+    private CategoryService categoryService = new CategoryService();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        boolean check = this.checkUser(req);
-        if (check) {
+//        boolean check = this.checkUser(req);
+//        if (check) {
             String action = req.getParameter("action");
             switch (action) {
                 case "home":
@@ -34,36 +35,38 @@ public class AdminProductController extends HttpServlet {
                     showEditPage(req, resp);
                     break;
             }
-        } else {
-            resp.sendRedirect("http://localhost:8080/user?action=login");
-        }
+//        } else {
+//            resp.sendRedirect("http://localhost:8080/login?action=login");
+//        }
     }
-public boolean checkUser(HttpServletRequest req){
-        HttpSession session = req.getSession();
-        if(session != null){
-            return session.getAttribute("idUser") != null;
-        }
-        return false;
-}
+//public boolean checkUser(HttpServletRequest req){
+//        HttpSession session = req.getSession();
+//        if(session != null){
+//            return session.getAttribute("idUser") != null;
+//        }
+//        return false;
+//}
     private void showEditPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int idEdit = Integer.parseInt(req.getParameter("idEdit"));
         req.setAttribute("idEdit", idEdit);
         Product productEdit = productService.findById(idEdit);
         req.setAttribute("productEdit", productEdit);
-        RequestDispatcher dispatcher = req.getRequestDispatcher("Product/edit.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("Users/Admin/Product/edit.jsp");
         dispatcher.forward(req, resp);
 
     }
 
     private void showAddPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher dispatcher = req.getRequestDispatcher("Product/add.jsp");
+        List<Category> list = this.categoryService.viewAll();
+        req.setAttribute("list",list);
+        RequestDispatcher dispatcher = req.getRequestDispatcher("Users/Admin/Product/add.jsp");
         dispatcher.forward(req, resp);
     }
 
     private void showHomePage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Product> products = productService.viewAll();
         req.setAttribute("product", products);
-        RequestDispatcher dispatcher = req.getRequestDispatcher("User/Admin/Product/home.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("Users/Admin/Product/home.jsp");
         dispatcher.forward(req, resp);
     }
 
@@ -92,18 +95,19 @@ public boolean checkUser(HttpServletRequest req){
         Category category = new Category(idCategory);
         Product newProduct = new Product(id, name, price, quantity, image, category);
         productService.edit(id, newProduct);
-        resp.sendRedirect("");
+        resp.sendRedirect("http://localhost:8080/adminProduct?action=home");
     }
 
     private void addProduct(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        int id = Integer.parseInt(req.getParameter("id"));
+
         String name = req.getParameter("name");
         double price = Double.parseDouble(req.getParameter("price"));
         String image = req.getParameter("image");
         int quantity = Integer.parseInt(req.getParameter("quantity"));
-        int idCategory = Integer.parseInt(req.getParameter("Category"));
+        int idCategory = Integer.parseInt(req.getParameter("idCategory"));
         Category category = new Category(idCategory);
-        Product newProduct = new Product(id, name, price, quantity, image, category);
-        resp.sendRedirect("");
+        Product newProduct = new Product(name, price, quantity, image, category);
+        productService.add(newProduct);
+        resp.sendRedirect("http://localhost:8080/adminProduct?action=home");
     }
 }

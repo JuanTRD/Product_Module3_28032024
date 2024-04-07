@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="font/fonts/themify-icons/themify-icons.css">
 </head>
 <body>
-<form action="" method="post">
+<form action="http://localhost:8080/login?action=login" method="post">
     <div class="modal ">
         <div class="modal-container ">
 
@@ -32,7 +32,7 @@
                 </label>
                 <input id="ticket-password" type="password" class="modal-input" placeholder="Password?">
 
-                <button id="buy-tickets">
+                <button id="buy-tickets" type="submit">
                     log in <i class="ti-check"></i>
                 </button>
             </div>

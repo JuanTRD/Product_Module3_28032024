@@ -78,6 +78,9 @@
                     <div class="form-group col-md-6">
                         <label for="inputState">Category</label>
                         <select id="inputState" class="form-control" name="idCategory">
+                            <c:forEach var="item" items="${list}">
+                                <option value="${item.id}">${item.name}</option>
+                            </c:forEach>
                         </select>
                     </div>
                 </div>
