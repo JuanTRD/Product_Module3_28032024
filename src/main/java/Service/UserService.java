@@ -58,7 +58,7 @@ public class UserService {
 
 
     public boolean checkUser(String username, String password) {
-        String sql = "select * from user";
+        String sql = "select * from user;";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet rs = preparedStatement.executeQuery();

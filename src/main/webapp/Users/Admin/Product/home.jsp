@@ -37,10 +37,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
-                            <a class="nav-link color-white" href="http://localhost:8080/user?action=login">Customer <span class="sr-only">(current)</span></a>
+                            <a class="nav-link color-white" href="http://localhost:8080/adminCustomer?action=home">Customer <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link color-white" href="http://localhost:8080/user?action=login">Order<span class="sr-only">(current)</span></a>
+                            <a class="nav-link color-white" href="http://localhost:8080/adminOrder?action=home">Order<span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item active">
                             <a class="nav-link color-white" href="http://localhost:8080/adminCategory?action=home">Category<span class="sr-only">(current)</span></a>
@@ -72,16 +72,18 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Quynh</td>
-                    <td>300</td>
-                    <td>27</td>
-                    <td><img src="abc.jbg" alt=""></td>
-                    <td>1</td>
-                    <td><a href="http://localhost:8080/adminProduct?action=edit" class="btn btn-outline-warning">edit</a></td>
-                    <td><a href="http://localhost:8080/user?action=login" class="btn btn-outline-danger">delete</a></td>
-                </tr>
+                <c:forEach items="${productList}" var="productList">
+                    <tr>
+                        <th scope="row">${productList.id}</th>
+                        <td>${productList.name}</td>
+                        <td>${productList.price}</td>
+                        <td>${productList.quantity}</td>
+                        <td><img src="${productList.image}" alt=""></td>
+                        <td>${productList.category.name}</td>
+                        <td><a href="http://localhost:8080/adminProduct?action=edit" class="btn btn-outline-warning">edit</a></td>
+                        <td><a href="http://localhost:8080/adminProduct?action=delete&id=${productList.id}" class="btn btn-outline-danger">delete</a></td>
+                    </tr>
+                </c:forEach>
                 </tbody>
             </table>
         </div>

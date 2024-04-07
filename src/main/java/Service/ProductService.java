@@ -15,7 +15,7 @@ import java.util.List;
 public class ProductService {
     private Connection connection = ConnectToMySQL.getConnection();
     private CategoryService categoryService = new CategoryService();
-    private List<Product> productList = new ArrayList<>();
+
 
     public ProductService() {
     }
@@ -27,16 +27,16 @@ public class ProductService {
             preparedStatement.setDouble(2, product.getPrice());
             preparedStatement.setInt(3, product.getQuantity());
             preparedStatement.setString(4, product.getImage());
-            Category category = product.getCategory();
-            preparedStatement.setInt(5, category.getId());
+            preparedStatement.setInt(5, product.getCategory().getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
     public List<Product> viewAll() {
         String sql = "select product.*, c.name as nameCategory from product join category c on c.id = product.IDCATEGORY;";
+        List<Product> productList = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet rs = preparedStatement.executeQuery();
@@ -53,7 +53,7 @@ public class ProductService {
                 productList.add(product);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return productList;
     }
@@ -71,7 +71,7 @@ public class ProductService {
                 preparedStatement.setInt(6, id);
                 preparedStatement.executeUpdate();
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
     }
 
@@ -83,7 +83,7 @@ public class ProductService {
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -105,7 +105,7 @@ public class ProductService {
                 product = new Product(id, name, price, quantity, image, category);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return product;
     }
