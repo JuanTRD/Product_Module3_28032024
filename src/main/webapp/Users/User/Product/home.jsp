@@ -66,14 +66,18 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Quynh</td>
-                    <td>300</td>
-                    <td>27</td>
-                    <td><img src="abc.jbg" alt=""></td>
-                    <td>1</td>
-                </tr>
+                <c:forEach items="${productList}" var="item">
+                    <tr>
+                        <th scope="row">${item.id}</th>
+                        <td>${item.name}</td>
+                        <td>${item.price}</td>
+                        <td>${item.quantity}</td>
+                        <td><img src="${item.image}" alt=""></td>
+                        <td>${item.category.name}</td>
+                        <td><a href="http://localhost:8080/adminProduct?action=edit&idEdit=${item.id}" class="btn btn-outline-warning">edit</a></td>
+                        <td><a href="http://localhost:8080/adminProduct?action=delete&idDelete=${item.id}" class="btn btn-outline-danger">delete</a></td>
+                    </tr>
+                </c:forEach>
                 </tbody>
             </table>
         </div>

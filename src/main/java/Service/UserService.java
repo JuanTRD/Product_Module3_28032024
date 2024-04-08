@@ -19,8 +19,7 @@ public class UserService {
     private RoleService roleService = new RoleService();
 
     public UserService() {
-        Role role = new Role(1);
-        this.add(new User(1,"Hoan","Hoan",role));
+
     }
 
     public void add(User user) {
