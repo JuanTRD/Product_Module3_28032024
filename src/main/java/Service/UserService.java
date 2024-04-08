@@ -63,7 +63,6 @@ public class UserService {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-
                 String usernameRS = rs.getString("username");
                 String passwordRS = rs.getString("password");
                 if (usernameRS.equals(username) && passwordRS.equals(password)) {

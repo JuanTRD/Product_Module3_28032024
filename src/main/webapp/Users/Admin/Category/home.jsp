@@ -68,12 +68,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${categorys}" var="category">
+                <c:forEach items="${categoryList}" var="item">
                     <tr>
-                        <th scope="row">${category.id}</th>
-                        <td>${category.name}</td>
+                        <th scope="row">${item.id}</th>
+                        <td>${item.name}</td>
                         <td><a href="http://localhost:8080/adminCategory?action=edit" class="btn btn-outline-warning">edit</a></td>
-                        <td><a href="http://localhost:8080/adminCategory?action=delete&id=${category.id}" class="btn btn-outline-danger">delete</a></td>
+                        <td><a href="http://localhost:8080/adminCategory?action=delete&id=${item.id}" class="btn btn-outline-danger">delete</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>

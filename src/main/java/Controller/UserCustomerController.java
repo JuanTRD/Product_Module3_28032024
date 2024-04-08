@@ -1,7 +1,5 @@
 package Controller;
 
-import Filter.SessionUser;
-import Model.Category;
 import Model.Customer;
 import Service.CustomerService;
 
@@ -11,33 +9,30 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "AdminCustomerController", value = "/adminCustomer")
-public class AdminCustomerController extends HttpServlet {
+@WebServlet (name = "userCustomerController", value = "/userCustomer")
+public class UserCustomerController extends HttpServlet {
     CustomerService customerService = new CustomerService();
-
-    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        boolean check = SessionUser.checkUser(req);
-        if (check) {
-            String action = req.getParameter("action");
-            switch (action) {
-                case "home":
-                    showCustomerHomePage(req, resp);
-                    break;
-                case "add":
-                    showCustomerAddPage(req, resp);
-                    break;
-                case "edit":
-                    showCustomerEditPage(req, resp);
-                    break;
-            }
-        } else {
-            resp.sendRedirect("http://localhost:8080/login?action=login");
+//        boolean check = this.checkUser(req);
+//        if (check) {
+        String action = req.getParameter("action");
+        switch (action) {
+            case "home":
+                showCustomerHomePage(req, resp);
+                break;
+            case "add":
+                showCustomerAddPage(req, resp);
+                break;
+            case "edit":
+                showCustomerEditPage(req, resp);
+                break;
         }
+//        } else {
+//            resp.sendRedirect("http://localhost:8080/user?action=login");
+//        }
     }
 
     private void showCustomerEditPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -88,11 +83,11 @@ public class AdminCustomerController extends HttpServlet {
 
     private void editCustomer(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         int id = Integer.parseInt(req.getParameter("id"));
-            String name = req.getParameter("name");
-            int age = Integer.parseInt(req.getParameter("age"));
-            Customer newCustomer = new Customer(name, age);
-            customerService.edit(id, newCustomer);
-            resp.sendRedirect("http://localhost:8080/adminProduct?action=home");
+        String name = req.getParameter("name");
+        int age = Integer.parseInt(req.getParameter("age"));
+        Customer newCustomer = new Customer(name, age);
+        customerService.edit(id, newCustomer);
+        resp.sendRedirect("http://localhost:8080/userProduct?action=home");
 
     }
     private void addCustomer(HttpServletRequest req, HttpServletResponse resp) throws IOException {

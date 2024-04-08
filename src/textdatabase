@@ -36,7 +36,8 @@ create table ORDERDETAILS(
 );
 CREATE table USER(
     ID int not null auto_increment primary key,
-    NAME varchar(20) not null,
+    username varchar(50) not null,
+    password varchar(50) not null,
     IDRole int,
     foreign key(IDRole) references Role(ID)
 );

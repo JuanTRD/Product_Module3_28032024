@@ -35,7 +35,7 @@ public class ProductService {
     }
 
     public List<Product> viewAll() {
-        String sql = "select product.*, c.name as nameCategory from product join category c on c.id = product.IDCATEGORY;";
+        String sql = "select product.*, c.name as nameCategory from product join category c on c.id = product.IDCATEGORY order by product.id asc;";
         List<Product> productList = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);

@@ -29,7 +29,7 @@
     <div class="row">
         <div class="col-12">
             <nav class="navbar navbar-expand-lg  nav-bg">
-                <a class="navbar-brand color-white" href="#">Mini Mart</a>
+                <a class="navbar-brand color-white" href="http://localhost:8080/userProduct?action=home">Mini Mart</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -37,13 +37,13 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
-                            <a class="nav-link color-white" href="#">Customer <span class="sr-only">(current)</span></a>
+                            <a class="nav-link color-white" href="http://localhost:8080/userCustomer?action=home">Customer <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link color-white" href="#">Oder<span class="sr-only">(current)</span></a>
+                            <a class="nav-link color-white" href="http://localhost:8080/adminOrder?action=home">Oder<span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link color-white" href="#">Category<span class="sr-only">(current)</span></a>
+                            <a class="nav-link color-white" href="http://localhost:8080/adminCategory?action=home">Category<span class="sr-only">(current)</span></a>
                         </li>
                     </ul>
                     <form class="form-inline my-2 my-lg-0">

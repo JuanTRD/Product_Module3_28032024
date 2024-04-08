@@ -1,5 +1,6 @@
 package Controller;
 
+import Filter.SessionUser;
 import Model.Category;
 import Model.Product;
 import Service.CategoryService;
@@ -21,11 +22,12 @@ public class AdminProductController extends HttpServlet {
     private CategoryService categoryService = new CategoryService();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        boolean check = this.checkUser(req);
-//        if (check) {
+        boolean check = SessionUser.checkUser(req);
+        if (check) {
             String action = req.getParameter("action");
             switch (action) {
                 case "home":
+
                     showHomePage(req, resp);
                     break;
                 case "add":
@@ -41,9 +43,9 @@ public class AdminProductController extends HttpServlet {
                     showSearchNamePage(req, resp);
                     break;
             }
-//        } else {
-//            resp.sendRedirect("http://localhost:8080/login?action=login");
-//        }
+        } else {
+            resp.sendRedirect("http://localhost:8080/login?action=login");
+        }
     }
 
     private void showSearchNamePage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -61,13 +63,7 @@ public class AdminProductController extends HttpServlet {
         resp.sendRedirect("http://localhost:8080/adminProduct?action=home");
     }
 
-    //public boolean checkUser(HttpServletRequest req){
-//        HttpSession session = req.getSession();
-//        if(session != null){
-//            return session.getAttribute("idUser") != null;
-//        }
-//        return false;
-//}
+
     private void showEditPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int idEdit = Integer.parseInt(req.getParameter("idEdit"));
         req.setAttribute("idEdit", idEdit);

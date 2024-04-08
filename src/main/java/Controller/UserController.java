@@ -29,12 +29,17 @@ public class UserController extends HttpServlet {
             case "login":
                 showLoginForm(req, resp);
                 break;
-
-
+            case "logout":
+                logout(req, resp);
+                break;
         }
 
     }
-
+    private void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession();
+        session.invalidate();
+        response.sendRedirect("/login?action=login");
+    }
     private void showLoginForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("Users/Login/login.jsp");

@@ -1,5 +1,6 @@
 package Controller;
 
+import Filter.SessionUser;
 import Model.Category;
 
 import Model.Product;
@@ -23,7 +24,7 @@ public class AdminCategoryController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        boolean check = this.checkUser(req);
+        boolean check = SessionUser.checkUser(req);
         if (check) {
             String action = req.getParameter("action");
             switch (action) {
@@ -38,7 +39,7 @@ public class AdminCategoryController extends HttpServlet {
                     break;
             }
         } else {
-            resp.sendRedirect("http://localhost:8080/user?action=login");
+            resp.sendRedirect("http://localhost:8080/login?action=login");
         }
 
 
@@ -59,8 +60,8 @@ public class AdminCategoryController extends HttpServlet {
     }
 
     private void showCategoryHomePage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Category> categories = categoryService.viewAll();
-        req.setAttribute("categories", categories);
+        List<Category> categoryList = categoryService.viewAll();
+        req.setAttribute("categoryList", categoryList);
         RequestDispatcher dispatcher = req.getRequestDispatcher("Users/Admin/Category/home.jsp");
         dispatcher.forward(req, resp);
 
