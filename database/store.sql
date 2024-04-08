@@ -21,9 +21,9 @@ create table Customer(
 );
 create table ORDERS(
                        ID int not null primary key auto_increment,
-                       TIME varchar(20) not null,
-                       TOTAL double not null,
-                       IDCustomer int,
+                       TIME timestamp not null,
+                       TOTAL double,
+                       IDCustomer int not null,
                        foreign key(IDCustomer)references Customer(ID)
 );
 create table ORDERDETAILS(

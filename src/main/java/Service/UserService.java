@@ -22,13 +22,12 @@ public class UserService {
     }
 
     public void add(User user) {
-        String sql = "insert into user(username, password, idrole) values (?, ?, ?);";
+        String sql = "insert into user(username, password, IdRole) values (?, ?, ?);";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, user.getUsername());
             preparedStatement.setString(2, user.getPassword());
-            Role role = user.getRole();
-            preparedStatement.setInt(3,user.getId());
+            preparedStatement.setInt(3,user.getRole().getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -63,7 +62,6 @@ public class UserService {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                int id = rs.getInt("id");
                 String usernameRS = rs.getString("username");
                 String passwordRS = rs.getString("password");
                 if (usernameRS.equals(username) && passwordRS.equals(password)) {
@@ -75,17 +73,15 @@ public class UserService {
         }
         return false;
     }
-    public int checkRole(String username, String password) {
-        String sql = "select user.*, r.name as nameRole from user join role r on r.id = user.idRole;";
+    public int checkRole(int id) {
+        String sql = "select user.*, r.name as nameRole from user join role r on r.id = user.idRole where user.id=?;";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1,id);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                int id = rs.getInt("id");
-                String usernameRS = rs.getString("username");
-                String passwordRS = rs.getString("password");
                 String nameRole = rs.getString("nameRole");
-                if (nameRole == "admin") {
+                if (nameRole.equals("admin")) {
                     return 1;
                 }
             }
@@ -110,7 +106,6 @@ public class UserService {
         }
     }
 
-
     public void delete(int id) {
         String sql = "DELETE FROM user WHERE id = ?;";
         try {
@@ -132,7 +127,6 @@ public class UserService {
             while (rs.next()) {
                 String username = rs.getString("username");
                 String password = rs.getString("password");
-                String nameCategory = rs.getString("nameCategory");
                 int idRole = rs.getInt("idRole");
                 String nameRole = rs.getString("nameRole");
                 Role role = new Role(idRole, nameRole);
@@ -151,8 +145,7 @@ public class UserService {
             preparedStatement.setString(2, password);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                int id = rs.getInt("id");
-                return id;
+                return rs.getInt("id");
             }
         } catch (SQLException e) {
             e.printStackTrace();
