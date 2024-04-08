@@ -47,7 +47,7 @@
                                     class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link color-white" href="">Logout<span class="sr-only">(current)</span></a>
+                            <a class="nav-link color-white" href="http://localhost:8080/login?action=logout">Logout<span class="sr-only">(current)</span></a>
                         </li>
                     </ul>
                 </div>
@@ -57,16 +57,16 @@
             <form action="http://localhost:8080/adminCustomer?action=edit" method="post">
                 <div>
                     <label>ID</label>
-                    <input type="number" name="id" placeholder="ID" value="${CustomerEdit.id}" readonly></input>
+                    <input type="number" name="id" placeholder="ID" value="${customerEdit.id}" readonly></input>
                 </div>
                 <div class="form-group col-md-12">
                     <label for="inputEmail4">Name</label>
-                    <input type="text" class="form-control" id="inputEmail4" name="name" value="${CustomerEdit.name}">
+                    <input type="text" class="form-control" id="inputEmail4" name="name" value="${customerEdit.name}">
                 </div>
 
                 <div class="form-group col-md-12">
                     <label for="inputPassword4">Age</label>
-                    <input type="number" class="form-control" id="inputPassword4" name="age" value="${CustomerEdit.age}">
+                    <input type="number" class="form-control" id="inputPassword4" name="age" value="${customerEdit.age}">
                 </div>
                 <button type="submit" class="btn btn-primary">Edit Customer</button>
             </form>
