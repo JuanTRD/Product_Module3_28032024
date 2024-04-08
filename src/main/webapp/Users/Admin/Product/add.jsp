@@ -33,7 +33,7 @@
     <div class="row">
         <div class="col-12">
             <nav class="navbar navbar-expand-lg nav-bg">
-                <a class="navbar-brand color-white" href="http://localhost:8080/adminProductt?action=home">Mini Mart</a>
+                <a class="navbar-brand color-white" href="http://localhost:8080/adminProduct?action=home">Mini Mart</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -45,6 +45,9 @@
                         <li class="nav-item active">
                             <a class="nav-link color-white" href="http://localhost:8080/adminProduct?action=add">Create Product <span
                                     class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link color-white" href="">Logout<span class="sr-only">(current)</span></a>
                         </li>
                     </ul>
                 </div>

@@ -45,6 +45,9 @@
                         <li class="nav-item active">
                             <a class="nav-link color-white" href="http://localhost:8080/adminCategory?action=home">Category<span class="sr-only">(current)</span></a>
                         </li>
+                        <li class="nav-item active">
+                            <a class="nav-link color-white" href="">Logout<span class="sr-only">(current)</span></a>
+                        </li>
                     </ul>
                     <form class="form-inline my-2 my-lg-0">
                         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -74,8 +77,6 @@
                         <td>${item.quantity}</td>
                         <td><img src="${item.image}" alt=""></td>
                         <td>${item.category.name}</td>
-                        <td><a href="http://localhost:8080/adminProduct?action=edit&idEdit=${item.id}" class="btn btn-outline-warning">edit</a></td>
-                        <td><a href="http://localhost:8080/adminProduct?action=delete&idDelete=${item.id}" class="btn btn-outline-danger">delete</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>

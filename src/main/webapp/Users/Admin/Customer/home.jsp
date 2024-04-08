@@ -45,6 +45,9 @@
                         <li class="nav-item active">
                             <a class="nav-link color-white" href="http://localhost:8080/adminCategory?action=home">Category<span class="sr-only">(current)</span></a>
                         </li>
+                        <li class="nav-item active">
+                            <a class="nav-link color-white" href="">Logout<span class="sr-only">(current)</span></a>
+                        </li>
 
                     </ul>
                     <form class="form-inline my-2 my-lg-0">
@@ -64,7 +67,7 @@
                     <th scope="col">STT</th>
                     <th scope="col">Name</th>
                     <th scope="col">Age</th>
-                    <th scope="col" colspan="2" style="padding-left: 10%">Action</th>
+                    <th scope="col">Action</th>
 
                 </tr>
                 </thead>
@@ -75,7 +78,7 @@
                         <td>${item.name}</td>
                         <td>${item.age}</td>
                         <td><a href="http://localhost:8080/adminCustomer?action=edit&idEdit=${item.id}" class="btn btn-outline-warning">edit</a></td>
-                        <td><a href="http://localhost:8080/adminCustomer?action=delete&id=${item.id}" class="btn btn-outline-danger">delete</a></td>
+
                     </tr>
                 </c:forEach>
                 </tbody>
