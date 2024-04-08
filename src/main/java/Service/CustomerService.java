@@ -14,22 +14,23 @@ import java.util.List;
 public class CustomerService {
     private Connection connection = ConnectToMySQL.getConnection();
 
-    public List<Customer> customerList = new ArrayList<>();
+
     public CustomerService() {}
     public void add(Customer customer) {
         String sql = "insert into customer(name, age) values (?,?);";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, customer.getName());
-            preparedStatement.setDouble(2, customer.getAge());
+            preparedStatement.setInt(2, customer.getAge());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
     public List<Customer> viewAll() {
         String sql = "select * from customer;";
+        List<Customer> customerList = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet rs = preparedStatement.executeQuery();
@@ -41,7 +42,7 @@ public class CustomerService {
                 customerList.add(customer);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return customerList;
     }
@@ -55,7 +56,7 @@ public class CustomerService {
             preparedStatement.setInt(3, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -67,7 +68,7 @@ public class CustomerService {
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -84,7 +85,7 @@ public class CustomerService {
                 customer = new Customer(name, age);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return customer;
     }

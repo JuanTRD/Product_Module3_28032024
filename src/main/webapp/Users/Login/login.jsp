@@ -24,13 +24,13 @@
                     <i class="ti-user"></i>
                     Username
                 </label>
-                <input id="ticket-user" type="text" class="modal-input" placeholder="Username?">
+                <input id="ticket-user" type="text" class="modal-input" placeholder="Username?" name="username">
 
                 <label for="ticket-password" class="modal-label">
                     <i class="ti-unlock"></i>
                     Password
                 </label>
-                <input id="ticket-password" type="password" class="modal-input" placeholder="Password?">
+                <input id="ticket-password" type="password" class="modal-input" placeholder="Password?" name="password">
 
                 <button id="buy-tickets" type="submit">
                     log in <i class="ti-check"></i>

@@ -52,15 +52,18 @@
         </div>
         <div class="col-12 mt-5">
             <form action="http://localhost:8080/adminCustomer?action=edit" method="post">
-
+                <div>
+                    <label>ID</label>
+                    <input type="number" name="id" placeholder="ID" value="${CustomerEdit.id}" readonly></input>
+                </div>
                 <div class="form-group col-md-12">
                     <label for="inputEmail4">Name</label>
-                    <input type="text" class="form-control" id="inputEmail4" name="name">
+                    <input type="text" class="form-control" id="inputEmail4" name="name" value="${CustomerEdit.name}">
                 </div>
 
                 <div class="form-group col-md-12">
                     <label for="inputPassword4">Age</label>
-                    <input type="number" class="form-control" id="inputPassword4" name="price">
+                    <input type="number" class="form-control" id="inputPassword4" name="age" value="${CustomerEdit.age}">
                 </div>
                 <button type="submit" class="btn btn-primary">Edit Customer</button>
             </form>

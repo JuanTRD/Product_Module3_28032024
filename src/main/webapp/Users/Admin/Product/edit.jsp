@@ -33,7 +33,7 @@
     <div class="row">
         <div class="col-12">
             <nav class="navbar navbar-expand-lg nav-bg">
-                <a class="navbar-brand color-white" href="http://localhost:8080/adminProductt?action=home">Mini Mart</a>
+                <a class="navbar-brand color-white" href="http://localhost:8080/adminProduct?action=home">Mini Mart</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -43,7 +43,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
-                            <a class="nav-link color-white" href="http://localhost:8080/adminProductt?action=edit">Edit Product <span
+                            <a class="nav-link color-white" href="http://localhost:8080/adminProduct?action=edit">Edit Product <span
                                     class="sr-only">(current)</span></a>
                         </li>
                     </ul>
@@ -51,28 +51,32 @@
             </nav>
         </div>
         <div class="col-12 mt-5">
-            <form action="http://localhost:8080/adminProductt?action=edit" method="post">
+            <form action="http://localhost:8080/adminProduct?action=edit" method="post">
+                <div>
+                    <label>ID</label>
+                    <input type="number" name="id" placeholder="ID" value="${productEdit.id}" readonly></input>
+                </div>
                 <div class="row">
                     <div class="form-group col-md-6">
                         <label for="inputEmail4">Name</label>
-                        <input type="text" class="form-control" id="inputEmail4" name="name">
+                        <input type="text" class="form-control" id="inputEmail4" name="name" value="${productEdit.name}">
                     </div>
 
                     <div class="form-group col-md-6">
                         <label for="inputPassword4">Price</label>
-                        <input type="number" class="form-control" id="inputPassword4" name="price">
+                        <input type="number" class="form-control" id="inputPassword4" name="price" value="${productEdit.price}">
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="form-group col-md-12">
                         <label for="inputZip">Quantity</label>
-                        <input type="number" class="form-control" id="inputZip" name="quantity">
+                        <input type="number" class="form-control" id="inputZip" name="quantity" value="${productEdit.quantity}">
                     </div>
 
                     <div class="form-group col-md-12">
                         <label for="inputImg">Image</label>
-                        <input type="text" class="form-control" id="inputImg" name="image">
+                        <input type="text" class="form-control" id="inputImg" name="image" value="${productEdit.image}">
                     </div>
                 </div>
 
@@ -80,6 +84,9 @@
                     <div class="form-group col-md-12">
                         <label for="inputState">Category</label>
                         <select id="inputState" class="form-control" name="idCategory">
+                            <c:forEach var="item" items="${list}">
+                                <option value="${item.id}">${item.name}</option>
+                            </c:forEach>
                         </select>
                     </div>
                 </div>

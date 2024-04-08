@@ -110,5 +110,29 @@ public class ProductService {
         return product;
     }
 
-
+    public List<Product> searchByName(String str) {
+        List<Product> list = new ArrayList<Product>();
+        String sql = "select * from product where name like ?;";
+        String str2 = "%" + str + "%";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, str2);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                Double price = resultSet.getDouble("price");
+                int quantity = resultSet.getInt("quantity");
+                String image = resultSet.getString("image");
+                int idCategory = resultSet.getInt("idcategory");
+                String nameCategory = resultSet.getString("nameCategory");
+                Category category = new Category(idCategory, nameCategory);
+                Product product = new Product(id, name, price, quantity, image, category);
+                list.add(product);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
 }

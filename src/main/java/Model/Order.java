@@ -11,6 +11,11 @@ public class Order {
     public Order() {
     }
 
+    public Order(Timestamp time, Customer customer) {
+        this.time = time;
+        this.customer = customer;
+    }
+
     public Order(int id, Timestamp time, int total) {
         this.id = id;
         this.time = time;

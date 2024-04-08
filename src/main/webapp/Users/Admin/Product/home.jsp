@@ -72,16 +72,16 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${productList}" var="productList">
+                <c:forEach items="${productList}" var="item">
                     <tr>
-                        <th scope="row">${productList.id}</th>
-                        <td>${productList.name}</td>
-                        <td>${productList.price}</td>
-                        <td>${productList.quantity}</td>
-                        <td><img src="${productList.image}" alt=""></td>
-                        <td>${productList.category.name}</td>
-                        <td><a href="http://localhost:8080/adminProduct?action=edit" class="btn btn-outline-warning">edit</a></td>
-                        <td><a href="http://localhost:8080/adminProduct?action=delete&id=${productList.id}" class="btn btn-outline-danger">delete</a></td>
+                        <th scope="row">${item.id}</th>
+                        <td>${item.name}</td>
+                        <td>${item.price}</td>
+                        <td>${item.quantity}</td>
+                        <td><img src="${item.image}" alt=""></td>
+                        <td>${item.category.name}</td>
+                        <td><a href="http://localhost:8080/adminProduct?action=edit&idEdit=${item.id}" class="btn btn-outline-warning">edit</a></td>
+                        <td><a href="http://localhost:8080/adminProduct?action=delete&idDelete=${item.id}" class="btn btn-outline-danger">delete</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>

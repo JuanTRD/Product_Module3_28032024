@@ -61,13 +61,12 @@ public class UserController extends HttpServlet {
             HttpSession session = req.getSession();
             session.setAttribute("idUser", id);
             System.out.println(id);
-            resp.sendRedirect("http://localhost:8080/adminProduct?action=home");
-
-//            if(roleService.findById(id).getName().equals("admin")){
-//                resp.sendRedirect("http://localhost:8080/adminProduct?action=home");
-//            } else {
-//                resp.sendRedirect("/adminProduct?action=home");
-//            }
+            System.out.println(userService.checkRole(id));
+            if(userService.checkRole(id)==1){
+                resp.sendRedirect("http://localhost:8080/adminProduct?action=home");
+            } else {
+                resp.sendRedirect("http://localhost:8080/adminCustomer?action=home");
+            }
 
         } else {
             resp.sendRedirect("http://localhost:8080/login?action=login");

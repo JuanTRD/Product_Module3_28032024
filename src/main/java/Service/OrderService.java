@@ -14,7 +14,7 @@ public class OrderService {
     private List<Order> orderList = new ArrayList<>();
 
     public List<Order> viewAll(){
-        String sql = "select order.*, c.name as nameCustomer from order join customer c on c.id =orders.idcustomer";
+        String sql = "select orders.*, c.name as nameCustomer from orders join customer c on c.id =orders.idcustomer";
         List<Order> list = new ArrayList<>();
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -35,9 +35,20 @@ public class OrderService {
         }
         return list;
     }
-    public void creat(Order order) {
-        orderList.add(order);
-    }
+//    public void add(Order order) {
+//        String sql = "insert into product(time ,image, IDCATEGORY) values (?,?,?,?,?);";
+//        try {
+//            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+//            preparedStatement.setString(1, product.getName());
+//            preparedStatement.setDouble(2, product.getPrice());
+//            preparedStatement.setInt(3, product.getQuantity());
+//            preparedStatement.setString(4, product.getImage());
+//            preparedStatement.setInt(5, product.getCategory().getId());
+//            preparedStatement.executeUpdate();
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
     public int findIndexById(int id) {
         for(int i=0; i<orderList.size(); i++) {
             if(orderList.get(i).getId() == id){

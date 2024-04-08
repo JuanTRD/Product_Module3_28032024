@@ -34,12 +34,34 @@ public class AdminProductController extends HttpServlet {
                 case "edit":
                     showEditPage(req, resp);
                     break;
+                    case "delete":
+                        deleteProduct(req, resp);
+                        break;
+                case "searchName":
+                    showSearchNamePage(req, resp);
+                    break;
             }
 //        } else {
 //            resp.sendRedirect("http://localhost:8080/login?action=login");
 //        }
     }
-//public boolean checkUser(HttpServletRequest req){
+
+    private void showSearchNamePage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String inputName = req.getParameter("inputName");
+        List<Product> searchProductList = productService.searchByName(inputName);
+        System.out.println(searchProductList.size());
+        req.setAttribute("list", searchProductList);
+        RequestDispatcher dispatcher = req.getRequestDispatcher("Users/Admin/Product/searchName.jsp");
+        dispatcher.forward(req, resp);
+    }
+
+    private void deleteProduct(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        int idDelete = Integer.parseInt(req.getParameter("idDelete"));
+        productService.delete(idDelete);
+        resp.sendRedirect("http://localhost:8080/adminProduct?action=home");
+    }
+
+    //public boolean checkUser(HttpServletRequest req){
 //        HttpSession session = req.getSession();
 //        if(session != null){
 //            return session.getAttribute("idUser") != null;
@@ -51,6 +73,8 @@ public class AdminProductController extends HttpServlet {
         req.setAttribute("idEdit", idEdit);
         Product productEdit = productService.findById(idEdit);
         req.setAttribute("productEdit", productEdit);
+        List<Category> list = categoryService.viewAll();
+        req.setAttribute("list", list);
         RequestDispatcher dispatcher = req.getRequestDispatcher("Users/Admin/Product/edit.jsp");
         dispatcher.forward(req, resp);
 
@@ -91,9 +115,9 @@ public class AdminProductController extends HttpServlet {
         double price = Double.parseDouble(req.getParameter("price"));
         String image = req.getParameter("image");
         int quantity = Integer.parseInt(req.getParameter("quantity"));
-        int idCategory = Integer.parseInt(req.getParameter("Category"));
+        int idCategory = Integer.parseInt(req.getParameter("idCategory"));
         Category category = new Category(idCategory);
-        Product newProduct = new Product(id, name, price, quantity, image, category);
+        Product newProduct = new Product(name, price, quantity, image, category);
         productService.edit(id, newProduct);
         resp.sendRedirect("http://localhost:8080/adminProduct?action=home");
     }

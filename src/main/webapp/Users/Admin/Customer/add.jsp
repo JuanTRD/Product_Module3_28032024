@@ -60,7 +60,7 @@
 
                 <div class="form-group col-md-12">
                     <label for="inputPassword4">Age</label>
-                    <input type="number" class="form-control" id="inputPassword4" name="price">
+                    <input type="number" class="form-control" id="inputPassword4" name="age">
                 </div>
 
                 <button type="submit" class="btn btn-primary">Create Customer</button>

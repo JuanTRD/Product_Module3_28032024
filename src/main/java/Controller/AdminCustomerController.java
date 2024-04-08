@@ -20,8 +20,8 @@ public class AdminCustomerController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        boolean check = this.checkUser(req);
-        if (check) {
+//        boolean check = this.checkUser(req);
+//        if (check) {
             String action = req.getParameter("action");
             switch (action) {
                 case "home":
@@ -34,9 +34,9 @@ public class AdminCustomerController extends HttpServlet {
                     showCustomerEditPage(req, resp);
                     break;
             }
-        } else {
-            resp.sendRedirect("http://localhost:8080/user?action=login");
-        }
+//        } else {
+//            resp.sendRedirect("http://localhost:8080/user?action=login");
+//        }
     }
 
     private void showCustomerEditPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -44,30 +44,30 @@ public class AdminCustomerController extends HttpServlet {
         req.setAttribute("idEdit", idEdit);
         Customer customerEdit = customerService.findById(idEdit);
         req.setAttribute("customerEdit", customerEdit);
-        RequestDispatcher dispatcher = req.getRequestDispatcher("User/Admin/Customer/edit.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("Users/Admin/Customer/edit.jsp");
         dispatcher.forward(req, resp);
     }
 
     private void showCustomerAddPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher dispatcher = req.getRequestDispatcher("User/Admin/Customer/add.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("Users/Admin/Customer/add.jsp");
         dispatcher.forward(req, resp);
     }
 
     private void showCustomerHomePage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Customer> customers = customerService.viewAll();
-        req.setAttribute("customers", customers);
+        List<Customer> customerList = customerService.viewAll();
+        req.setAttribute("customerList", customerList);
         RequestDispatcher dispatcher = req.getRequestDispatcher("Users/Admin/Customer/home.jsp");
         dispatcher.forward(req, resp);
 
     }
 
-    public boolean checkUser(HttpServletRequest req) {
-        HttpSession session = req.getSession();
-        if (session != null) {
-            return session.getAttribute("idUser") != null;
-        }
-        return false;
-    }
+//    public boolean checkUser(HttpServletRequest req) {
+//        HttpSession session = req.getSession();
+//        if (session != null) {
+//            return session.getAttribute("idUser") != null;
+//        }
+//        return false;
+//    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -89,17 +89,17 @@ public class AdminCustomerController extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("id"));
             String name = req.getParameter("name");
             int age = Integer.parseInt(req.getParameter("age"));
-            Customer newCustomer = new Customer(id, name, age);
+            Customer newCustomer = new Customer(name, age);
             customerService.edit(id, newCustomer);
-            resp.sendRedirect("");
+            resp.sendRedirect("http://localhost:8080/adminProduct?action=home");
 
     }
     private void addCustomer(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        int id = Integer.parseInt(req.getParameter("id"));
+
         String name = req.getParameter("name");
         int age = Integer.parseInt(req.getParameter("age"));
-        Customer newCustomer = new Customer(id,name, age);
+        Customer newCustomer = new Customer(name, age);
         customerService.add(newCustomer);
-        resp.sendRedirect("");
+        resp.sendRedirect("http://localhost:8080/adminCustomer?action=home");
     }
 }

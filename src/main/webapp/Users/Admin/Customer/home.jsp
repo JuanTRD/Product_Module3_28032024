@@ -55,7 +55,7 @@
             </nav>
         </div>
         <div class="col-6 mt-5" >
-            <button type="button" class="btn btn-outline-primary"><a href="http://localhost:8080/adminCustomer?action=add"></a>Create customer</button>
+            <button type="button" class="btn btn-outline-primary"><a href="http://localhost:8080/adminCustomer?action=add">Create customer</a></button>
         </div>
         <div class="col-12 mt-3">
             <table class="table">
@@ -69,13 +69,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${customers}" var="customer">
+                <c:forEach items="${customerList}" var="item">
                     <tr>
-                        <th scope="row">${customer.id}</th>
-                        <td>${customer.name}</td>
-                        <td>${customer.age}</td>
-                        <td><a href="http://localhost:8080/adminCustomer?action=edit" class="btn btn-outline-warning">edit</a></td>
-                        <td><a href="http://localhost:8080/adminCustomer?action=delete&id=${customer.id}" class="btn btn-outline-danger">delete</a></td>
+                        <th scope="row">${item.id}</th>
+                        <td>${item.name}</td>
+                        <td>${item.age}</td>
+                        <td><a href="http://localhost:8080/adminCustomer?action=edit&idEdit=${item.id}" class="btn btn-outline-warning">edit</a></td>
+                        <td><a href="http://localhost:8080/adminCustomer?action=delete&id=${item.id}" class="btn btn-outline-danger">delete</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>
