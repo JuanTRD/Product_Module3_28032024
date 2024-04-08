@@ -45,6 +45,9 @@
                         <li class="nav-item active">
                             <a class="nav-link color-white" href="http://localhost:8080/adminOrder?action=home">Order<span class="sr-only">(current)</span></a>
                         </li>
+                        <li class="nav-item active">
+                            <a class="nav-link color-white" href="">Logout<span class="sr-only">(current)</span></a>
+                        </li>
 
                     </ul>
                     <form class="form-inline my-2 my-lg-0">
@@ -68,7 +71,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${categorys}" var="category">
+                <c:forEach items="${categories}" var="category">
                     <tr>
                         <th scope="row">${category.id}</th>
                         <td>${category.name}</td>

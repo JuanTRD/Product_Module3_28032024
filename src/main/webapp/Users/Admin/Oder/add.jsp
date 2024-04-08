@@ -46,6 +46,9 @@
                             <a class="nav-link color-white" href="http://localhost:8080/adminOrder?action=add">Create Order <span
                                     class="sr-only">(current)</span></a>
                         </li>
+                        <li class="nav-item active">
+                            <a class="nav-link color-white" href="">Logout<span class="sr-only">(current)</span></a>
+                        </li>
                     </ul>
                 </div>
             </nav>
